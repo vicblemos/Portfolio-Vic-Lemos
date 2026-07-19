@@ -18,10 +18,10 @@ export default function SiteHeader() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 py-6 px-4 lg:px-8 backdrop-blur-sm border-b"
+      className="fixed top-0 left-0 right-0 z-50 py-6 backdrop-blur-sm border-b"
       style={{ background: "#121111", borderStyle: "none" }}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="container flex items-center justify-between">
         <Link
           href="/"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -81,7 +81,7 @@ export default function SiteHeader() {
         className="md:hidden overflow-hidden transition-all duration-500 ease-out"
         style={{ maxHeight: menuOpen ? "240px" : "0px", opacity: menuOpen ? 1 : 0 }}
       >
-        <div className="max-w-7xl mx-auto flex flex-col gap-5 pt-6 pb-2">
+        <div className="container flex flex-col gap-5 pt-6 pb-2">
           {navItems.map((item) => (
             <a
               key={item}
