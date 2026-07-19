@@ -24,10 +24,11 @@ export default function SiteHeader() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link
           href="/"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="hover-fade text-sm tracking-widest uppercase"
           style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: "#94908a" }}
         >
-          PORTFÓLIO 2026
+          PORTFOLIO 2026
         </Link>
 
         {/* Desktop nav */}
