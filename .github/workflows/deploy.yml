@@ -1,15 +1,8 @@
 name: Deploy to GitHub Pages
 
-# Builds the static site and publishes it to GitHub Pages on every push to main.
-# No manual build step, no /docs folder to keep in sync — this replaces both.
-#
-# One-time setup after pushing this file:
-#   Repo → Settings → Pages → "Build and deployment" → Source → "GitHub Actions"
-
 on:
   push:
     branches: [main]
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -23,29 +16,21 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
+          cache: npm
 
-      - name: Install dependencies
-        run: pnpm install
+      - run: npm install
+      - run: npm run build:pages
 
-      - name: Build static site
-        run: pnpm run build:pages
+      - uses: actions/configure-pages@v5
 
-      - name: Upload build artifact
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
@@ -55,7 +40,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4
